@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/01/Or8Way.hdl
-
+// Name: Luke Reynolds
 /**
  * 8-way Or: 
  * out = (in[0] or in[1] or ... or in[7])
@@ -13,5 +13,14 @@ CHIP Or8Way {
     OUT out;
 
     PARTS:
-    // Put your code here:
+	
+	Or(a = a[0], out = out);
+	Or(a = a[1], out = out);
+	Or(a = a[2], out = out);
+	Or(a = a[3], out = out);
+	Or(a = a[4], out = out);
+	Or(a = a[5], out = out);
+	Or(a = a[6], out = out);
+	Or(a = a[7], out = out);
+    
 }
