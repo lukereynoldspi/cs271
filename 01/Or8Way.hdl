@@ -14,13 +14,12 @@ CHIP Or8Way {
 
     PARTS:
 	
-	Or(a = a[0], out = out);
-	Or(a = a[1], out = out);
-	Or(a = a[2], out = out);
-	Or(a = a[3], out = out);
-	Or(a = a[4], out = out);
-	Or(a = a[5], out = out);
-	Or(a = a[6], out = out);
-	Or(a = a[7], out = out);
+	Or(a = in[0], b = in[1], out = Or1Out);
+	Or(a = Or1Out, b = in[2], out = Or2Out);
+	Or(a = Or2Out, b = in[3], out = Or3Out);
+	Or(a = Or3Out, b = in[4], out = Or4Out);
+	Or(a = Or4Out, b = in[5], out = Or5Out);
+	Or(a = Or5Out, b = in[6], out = Or6Out);
+	Or(a = Or6Out, b = in[7], out = out);
     
 }
