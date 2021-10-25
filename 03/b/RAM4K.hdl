@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/03/b/RAM4K.hdl
-
+// Name: Luke Reynolds
 /**
  * Memory of 4K registers, each 16 bit-wide. Out holds the value
  * stored at the memory location specified by address. If load==1, then 
@@ -15,5 +15,16 @@ CHIP RAM4K {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    DMux8Way(in = load, sel = address[0..2], a = DMuxA, b = DMuxB, c = DMuxC, d = DMuxD, e = DMuxE, f = DMuxF, g = DMuxG, h = DMuxH);
+	
+    RAM512( in = in, load = DMuxA, address = address[3..11], out = RAM512OutA);
+	RAM512( in = in, load = DMuxB, address = address[3..11], out = RAM512OutB);
+	RAM512( in = in, load = DMuxC, address = address[3..11], out = RAM512OutC);
+	RAM512( in = in, load = DMuxD, address = address[3..11], out = RAM512OutD);
+	RAM512( in = in, load = DMuxE, address = address[3..11], out = RAM512OutE);
+	RAM512( in = in, load = DMuxF, address = address[3..11], out = RAM512OutF);
+	RAM512( in = in, load = DMuxG, address = address[3..11], out = RAM512OutG);
+	RAM512( in = in, load = DMuxH, address = address[3..11], out = RAM512OutH);
+	
+	Mux8Way16(a = RAM512OutA, b = RAM512OutB, c = RAM512OutC, d = RAM512OutD, e = RAM512OutE, f = RAM512OutF, g = RAM512OutG, h = RAM512OutH, sel = address[0..2], out = out);
 }
