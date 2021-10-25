@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/03/b/RAM16K.hdl
-
+// Name: Luke Reynolds
 /**
  * Memory of 16K registers, each 16 bit-wide. Out holds the value
  * stored at the memory location specified by address. If load==1, then 
@@ -15,5 +15,12 @@ CHIP RAM16K {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    DMux4Way(in = load, sel = address[12..13], a = DMuxA, b = DMuxB, c = DMuxC, d = DMuxD);
+	
+    RAM4K( in = in, load = DMuxA, address = address[0..11], out = RAM4KOutA);
+	RAM4K( in = in, load = DMuxB, address = address[0..11], out = RAM4KOutB);
+	RAM4K( in = in, load = DMuxC, address = address[0..11], out = RAM4KOutC);
+	RAM4K( in = in, load = DMuxD, address = address[0..11], out = RAM4KOutD);
+	
+	Mux4Way16(a = RAM4KOutA, b = RAM4KOutB, c = RAM4KOutC, d = RAM4KOutD, sel = address[12..13], out = out);
 }
