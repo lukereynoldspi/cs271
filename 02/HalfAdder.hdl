@@ -3,6 +3,7 @@
 // by Nisan and Schocken, MIT Press.
 // File name: projects/02/HalfAdder.hdl
 
+// Name: Luke Reynolds
 /**
  * Computes the sum of two bits.
  */
@@ -13,5 +14,6 @@ CHIP HalfAdder {
         carry;  // Left bit of a + b
 
     PARTS:
-    // Put you code here:
+    And(a = a, b = b, out = carry);
+    Xor(a = a, b = b, out = sum);
 }
