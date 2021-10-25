@@ -2,6 +2,8 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/03/a/Bit.hdl
+// Name: Luke Reynolds
+
 
 /**
  * 1-bit register:
@@ -14,5 +16,6 @@ CHIP Bit {
     OUT out;
 
     PARTS:
-    // Put your code here:
+    Mux (a = DFFOut, b = in, sel = load, out = MuxOut);
+	DFF (in = MuxOut, out = DFFOut, out = out);
 }

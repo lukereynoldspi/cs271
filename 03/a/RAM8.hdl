@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/03/a/RAM8.hdl
-
+// Name: Luke Reynolds
 /**
  * Memory of 8 registers, each 16 bit-wide. Out holds the value
  * stored at the memory location specified by address. If load==1, then 
@@ -15,5 +15,14 @@ CHIP RAM8 {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+	DMux8Way(in = load, sel = address, a = DMuxA, b = DMuxB, c = DMuxC, d = DMuxD, e = DMuxE, f = DMuxF, g = DMuxG, h = DMuxH);
+    Register( in = in, load = DMuxA, out = RegisterOutA);
+	Register( in = in, load = DMuxB, out = RegisterOutB);
+	Register( in = in, load = DMuxC, out = RegisterOutC);
+	Register( in = in, load = DMuxD, out = RegisterOutD);
+	Register( in = in, load = DMuxE, out = RegisterOutE);
+	Register( in = in, load = DMuxF, out = RegisterOutF);
+	Register( in = in, load = DMuxG, out = RegisterOutG);
+	Register( in = in, load = DMuxH, out = RegisterOutH);
+	Mux
 }

@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/01/Mux8Way16.hdl
-
+// Name: Luke Reynolds
 /**
  * 8-way 16-bit multiplexor:
  * out = a if sel == 000
@@ -18,5 +18,11 @@ CHIP Mux8Way16 {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    Mux16 (a = a, b = b, sel = sel[0], out = Mux16Out1);
+    Mux16 (a = c, b = d, sel = sel[0], out = Mux16Out2);
+    Mux16 (a = e, b = f, sel = sel[0], out = Mux16Out3);
+    Mux16 (a = g, b = h, sel = sel[0], out = Mux16Out4);
+    Mux16 (a = Mux16Out1, b = Mux16Out2, sel = sel[1], out = Mux16Out5);
+    Mux16 (a = Mux16Out3, b = Mux16Out4, sel = sel[1], out = Mux16Out6);
+    Mux16 (a = Mux16Out5, b = Mux16Out6, sel = sel[2], out = out);
 }
