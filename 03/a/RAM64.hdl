@@ -2,13 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/03/a/RAM64.hdl
-
-/**
- * Memory of 64 registers, each 16 bit-wide. Out holds the value
- * stored at the memory location specified by address. If load==1, then 
- * the in value is loaded into the memory location specified by address 
- * (the loaded value will be emitted to out from the next time step onward).
- */
+// Name: Luke Reynolds
 
 CHIP RAM64 {
     IN in[16], load, address[6];
@@ -16,5 +10,16 @@ CHIP RAM64 {
 
     PARTS:
     // Put your code here:
-	Register( in = [0]
+	DMux8Way(in = load, sel = address[0..2], a = DMuxA, b = DMuxB, c = DMuxC, d = DMuxD, e = DMuxE, f = DMuxF, g = DMuxG, h = DMuxH);
+	
+    RAM8( in = in, load = DMuxA, address = address[3..5], out = RAM8OutA);
+	RAM8( in = in, load = DMuxB, address = address[3..5], out = RAM8OutB);
+	RAM8( in = in, load = DMuxC, address = address[3..5], out = RAM8OutC);
+	RAM8( in = in, load = DMuxD, address = address[3..5], out = RAM8OutD);
+	RAM8( in = in, load = DMuxE, address = address[3..5], out = RAM8OutE);
+	RAM8( in = in, load = DMuxF, address = address[3..5], out = RAM8OutF);
+	RAM8( in = in, load = DMuxG, address = address[3..5], out = RAM8OutG);
+	RAM8( in = in, load = DMuxH, address = address[3..5], out = RAM8OutH);
+	
+	Mux8Way16(a = RAM8OutA, b = RAM8OutB, c = RAM8OutC, d = RAM8OutD, e = RAM8OutE, f = RAM8OutF, g = RAM8OutG, h = RAM8OutH, sel = address[0..2], out = out);
 }
