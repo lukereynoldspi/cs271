@@ -48,7 +48,7 @@ void parse(FILE * file)
 		{
 			inst_type = 'C';
 		}
-		printf("%c %s\n",inst_type, line);
+		printf("%c  %s\n",inst_type, line);
 	}
 }
 
@@ -56,7 +56,7 @@ void parse(FILE * file)
 
 char *strip(char *s)
 {
-	char s_new[strlen(s) + 1];
+	char s_new[MAX_LINE_LENGTH];
 	
 	int i = 0;
 	for (char *s2 = s; *s2; s2++) 
@@ -65,7 +65,7 @@ char *strip(char *s)
    		{
    			break;
    		}
-   		else if (isspace(*s2))
+   		else if (!isspace(*s2))
    		{
    			s_new[i++] = *s2;
    		}

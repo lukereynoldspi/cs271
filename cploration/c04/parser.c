@@ -10,13 +10,13 @@ void parse(FILE * file)
 			continue;
 		}
 		printf("%s\n", line);
-		printf("hi");
+		
 	}
 }
 
 char *strip(char *s)
 {
-	char s_new[strlen(s) + 1];
+	char s_new[MAX_LINE_LENGTH] = {0};
 	
 	int i = 0;
 	for (char *s2 = s; *s2; s2++) 
@@ -25,7 +25,7 @@ char *strip(char *s)
    		{
    			break;
    		}
-   		else if (isspace(*s2))
+   		else if (!isspace(*s2))
    		{
    			s_new[i++] = *s2;
    		}
