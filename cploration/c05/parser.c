@@ -11,7 +11,7 @@ bool is_Atype(const char *line)
 
 bool is_label(const char *line)
 {
-	if (line[0] == '(' && line[-1] == ')')
+	if (line[0] == '(' && line[strlen(line)-1] == ')')
 		return true;
 	else
 		return false;
@@ -56,7 +56,7 @@ void parse(FILE * file)
 
 char *strip(char *s)
 {
-	char s_new[MAX_LINE_LENGTH];
+	char s_new[MAX_LINE_LENGTH] = {0};
 	
 	int i = 0;
 	for (char *s2 = s; *s2; s2++) 
