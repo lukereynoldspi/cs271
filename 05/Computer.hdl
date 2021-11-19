@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/05/Computer.hdl
-
+// Name: Luke Reynolds
 /**
  * The HACK computer, including CPU, ROM and RAM.
  * When reset is 0, the program stored in the computer's ROM executes.
@@ -20,4 +20,7 @@ CHIP Computer {
 
     PARTS:
     // Put your code here:
+    Memory();
+    CPU();
+    ROM32K();
 }
