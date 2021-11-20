@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/02/ALU.hdl
-
+// Name: Luke Reynolds
 /**
  * The ALU (Arithmetic Logic Unit).
  * Computes one of the following functions:
@@ -43,4 +43,6 @@ CHIP ALU {
 
     PARTS:
    // Put you code here:
+   Mux16(a =, b =, sel =, out = MuxOut)
+   Mux16(a =, b =, sel =, out = MuxOut)
 }
