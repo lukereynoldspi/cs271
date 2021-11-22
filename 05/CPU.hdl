@@ -78,9 +78,15 @@ CHIP CPU {
     And(a = instruction[15], b = instruction[0], out = JGT); //Greater than 0
     And(a = JGT, b = ZROut, out = JGTOut);
 
-    And(a)
+    And(a = instruction[15], b = instruction[1], out = JEQ); //Equal to 0
+    And(a = JEQ, b=ZROut, out=JEQOut);
 
+    And(a = instruction[15], b = instruction[2], out = JLT); //Less than 0
+    And(a = JLT, b = NGOut, out = JLTOut);
 
-    //increments counter??
-    //PC(in =, load =, inc, reset, out=);
+    Or(a = JGTOut, b = JEQOut, out = JLE);
+    Or(a = JLE, b = JLTOut, out = JMP);
+
+    //next instruction evaluated
+    PC(in = ARegisterOut, load = JMP, inc = true, reset = reset, out = [0..14] = pc);
 }
