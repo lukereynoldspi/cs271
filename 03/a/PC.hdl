@@ -2,7 +2,7 @@
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/03/a/PC.hdl
-
+// Name: Luke Reynolds
 /**
  * A 16-bit counter with load and reset control bits.
  * if      (reset[t] == 1) out[t+1] = 0
@@ -17,4 +17,13 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
+
+    Inc16(in = reg, out = Inc16Out);
+
+    Mux16(a = reg, b = Inc16Out, sel = inc, out = inc1);
+    Mux16(a = inc1, b = in, sel = load, out = inc2);
+    Mux16(a = inc2, b[0..15] = false, sel = reset, out = inc3);
+    
+    Register(in = inc3, load = true, out = out, out = reg);
+
 }
