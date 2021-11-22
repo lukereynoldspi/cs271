@@ -11,8 +11,7 @@ int hash(char *str)
     while ((c = *str++))
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 
-    hash = hash % SYMBOL_TABLE_SIZE;
-    return hash;
+    return hash % SYMBOL_TABLE_SIZE;
 }
 
 //Exercise 4

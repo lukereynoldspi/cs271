@@ -13,23 +13,27 @@
 
 char *strip(char *s);
 void parse(FILE * file);
+
 bool is_Atype(const char *);
 bool is_label(const char *);
 bool is_Ctype(const char *);
+
 char *extract_label(const char *line, char* label);
+
 enum instr_type{
 	Invalid = -1,
 	A_type,
 	C_type,
 };
+
 typedef int16_t hack_addr;
 typedef int16_t opcode;
 
 typedef struct c_instruction{
 	opcode a:1;
-	opcode comp:;
-	opcode dest:;
-	opcode jump:;
+	opcode comp:6;
+	opcode dest:3;
+	opcode jump:3;
 } c_instruction;
 
 typedef struct a_instruction{
@@ -42,9 +46,9 @@ typedef struct a_instruction{
 
 typedef struct instruction{
 	union {
-		a_instruction;
-		c_instruction;
-	}
-	instr_type field;
+		a_instruction a_instr;
+		c_instruction c_instr;
+	};
+	bool instr_type;
 } instruction;
 #endif

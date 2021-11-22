@@ -1,5 +1,6 @@
 #include "parser.h"
-
+#include "error.h"
+#include "symtable.h"
 bool is_Atype(const char *line)
 {
 	if (line[0] != '@')
@@ -34,12 +35,22 @@ char *extract_label(const char *line, char* label)
 void parse(FILE * file)
 {
 	char line[MAX_LINE_LENGTH] = {0};
+	unsigned int line_num = 0;
+	unsigned int instr_num = 0;
 	while (fgets(line, sizeof(line), file))
 	{
+		line_num = line_num + 1;
+		if(instr_num > MAX_INSTRUCTIONS)
+		{
+			exit_program(EXIT_TOO_MANY_INSTRUCTIONS, MAX_INSTRUCTIONS + 1);
+		}
 		strip(line);
+
 		if(!*line)
 			continue;
-		char inst_type;
+
+		char inst_type = '\0';
+
 		if(is_Atype(line))
 		{
 			inst_type = 'A';
@@ -50,7 +61,15 @@ void parse(FILE * file)
 			inst_type = 'L';
 			char label[strlen(line)];
 			extract_label(line, label);
-			printf("%c  %s\n", inst_type, label);
+			if (isalpha(line[0]))
+			{
+				exit_program(EXIT_INVALID_LABEL, line_num, line);
+			}
+			else if(symtable_find(line) != NULL)
+			{
+				exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, line);
+			}
+			symtable_insert(line, instr_num);
        		continue;
 		}
 
@@ -58,8 +77,8 @@ void parse(FILE * file)
 		{
 			inst_type = 'C';
 		}
-
-		printf("%c  %s\n",inst_type, line);
+		printf("%c  %s\n", inst_type, line);
+		instr_num = instr_num + 1;
 	}
 }
 
