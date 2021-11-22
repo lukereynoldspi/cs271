@@ -39,7 +39,48 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    ALU();
-    ARegister();
-    DRegister();
+    //define instruction, a or c?
+
+    Not(in = instruction[15], out = instructionA);
+    Not(in = instructionA, out = instructionC);
+
+    //instance depending on a or c, loads into A register
+    And(a = instructionC, b = instruction[5], out = ALUARegister);
+    Mux16(a = instruction, b = ALUOut, sel = ALUARegister, out = ARegisterIn);
+    Or(a = instructionA, b = ALUARegister, out = AInstance);
+    ARegister(in = ARegisterIn, load = AInstance, out = ARegisterOut);
+
+    //loads bit to select either a or m for the ALU
+    Mux16(a = ARegisterOut, b = inM, sel = instruction[12], out = AOrMOut); 
+
+    //loads D register
+    And(a = instructionC, b = instruction[4], out = DInstance);
+    DRegister(in = ALUOut, load = DInstance, out = DRegisterOut);
+
+    ALU(
+    x = DRegisterOut, 
+    y = AOrMOut, 
+    zx = instruction[11], 
+    nx = instruction[10], 
+    zy = instruction[9], 
+    ny = instruction[8], 
+    f = instruction[7], 
+    no = instruction[6], 
+    out = ALUOut, 
+    zr = ZROut, 
+    ng = NGOut
+    );
+    
+    //writes m
+    And(a = instruction[3], b = instruction[15], out = writeM);
+
+    //Jump i n s t r u c t i o n s 
+    And(a = instruction[15], b = instruction[0], out = JGT); //Greater than 0
+    And(a = JGT, b = ZROut, out = JGTOut);
+
+    And(a)
+
+
+    //increments counter??
+    //PC(in =, load =, inc, reset, out=);
 }
