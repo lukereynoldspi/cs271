@@ -1,5 +1,6 @@
 #define NUM_PREDEFINED_SYMBOLS 23
-
+#include <string.h>
+#include <stdint.h>
 typedef enum {
 	SYM_R0 = 0,
 	SYM_R1 = 1,
@@ -27,7 +28,7 @@ typedef enum {
 } symbol_id;
 
 typedef struct {
-	char name;
+	char name[10];
 	int16_t address;
 
 } predefined_symbol;

@@ -37,6 +37,7 @@ void parse(FILE * file)
 	char line[MAX_LINE_LENGTH] = {0};
 	unsigned int line_num = 0;
 	unsigned int instr_num = 0;
+	instruction instr;
 	add_predefined_symbols();
 	while (fgets(line, sizeof(line), file))
 	{
@@ -55,6 +56,10 @@ void parse(FILE * file)
 		if(is_Atype(line))
 		{
 			inst_type = 'A';
+			if (!parse_A_instruction(line, &instr.instr.a)){
+    			exit_program(EXIT_INVALID_A_INSTR, line_num, line);
+ 				}
+ 			instr.itype = INST_A;
 		}
 
 		else if(is_label(line))
@@ -113,5 +118,21 @@ void add_predefined_symbols() {
 }
 
 bool parse_A_instruction(const char *line, a_instruction *instr){
-	
+	char *s = (char*) malloc(strlen(line));
+	strcpy(s, line +1);
+	char *s_end = NULL;
+	long result = strtol(s, &s_end, 10);
+	if (s == s_end){
+		instr->label = (char*) malloc(strlen(line));
+		strcpy(instr->label, s);
+		instr->is_addr = false;
+	}
+	else if (*s_end != 0){
+		return false;
+	}
+	else{
+		instr->address = result;
+		instr->is_addr = true;
+	}
+	return true;
 }
